@@ -18,9 +18,9 @@ namespace APIForum.Controllers
         public PublicacaoController(IMapper mapper) => _mapper = mapper;
    
         [HttpGet]
-        public  IActionResult BuscarTodasPublicacoes([FromHeader]string id_user) 
+        public  IActionResult buscarTodasPublicacoes([FromHeader]string id_user) 
         {
-            var todasPublicacoes = new PublicacaoCore(_mapper).BuscarTodosPublicacoes(id_user);
+            var todasPublicacoes = new PublicacaoCore(_mapper).buscaTodasPublicacoes(id_user);
             return todasPublicacoes.Status ? 
                 Ok(todasPublicacoes) : 
                 (IActionResult)BadRequest(todasPublicacoes);
@@ -28,37 +28,37 @@ namespace APIForum.Controllers
 
      
         [HttpGet("{id}")]
-        public IActionResult BuscarPublicacaoPorID(string id,[FromHeader] string id_user)
+        public IActionResult buscarPublicacaoPorID(string id,[FromHeader] string id_user)
         {
-            var PublicacaoID = new PublicacaoCore(_mapper).BuscarPublicacaoID(id, id_user);
-            return PublicacaoID.Status ? 
-                Ok(PublicacaoID): 
-                (IActionResult)BadRequest(PublicacaoID);
+            var idPublicacao = new PublicacaoCore(_mapper).buscaIdPublicacao(id, id_user);
+            return idPublicacao.Status ? 
+                Ok(idPublicacao): 
+                (IActionResult)BadRequest(idPublicacao);
         }
 
        
         [HttpPost]
-        public IActionResult CriarUmaPublicacao([FromBody] PublicacaoView publicacaoView ,[FromHeader] string id_user)
+        public IActionResult criarUmaPublicacao([FromBody] PublicacaoView publicacaoView ,[FromHeader] string id_user)
         {
-            var Publicacao = new PublicacaoCore(publicacaoView, _mapper).CadastrarPublicacao(id_user);
-            return Publicacao.Status ? 
-                Ok(Publicacao) : 
-                (IActionResult)BadRequest(Publicacao);
+            var publicacao = new PublicacaoCore(publicacaoView, _mapper).cadastrarPublicacao(id_user);
+            return publicacao.Status ? 
+                Ok(publicacao) : 
+                (IActionResult)BadRequest(publicacao);
         }
 
        
         [HttpPut("{publicacaoID}")]
-        public IActionResult AtualizarPublicacao([FromHeader] string id_user, [FromBody] PublicacaoView  PublicacaoView ,string id_publicacao)
+        public IActionResult atualizarPublicacao([FromHeader] string id_user, [FromBody] PublicacaoView  PublicacaoView ,string id_publicacao)
         {
-            var AtualizarPublicacao = new PublicacaoCore(_mapper).AtualizarPublicacao(PublicacaoView, id_publicacao, id_user);
-            return AtualizarPublicacao.Status ? 
-                Ok(AtualizarPublicacao) : 
-                (IActionResult)BadRequest(AtualizarPublicacao);
+            var publicacaoAtualiza = new PublicacaoCore(_mapper).atualizaPublicacao(PublicacaoView, id_publicacao, id_user);
+            return publicacaoAtualiza.Status ? 
+                Ok(publicacaoAtualiza) : 
+                (IActionResult)BadRequest(publicacaoAtualiza);
         }
 
         
         [HttpDelete("{IdPublicacao}")]
-        public IActionResult DeletarPublicacao(string IdPublicacao,[FromHeader] string UsuarioId)
+        public IActionResult deletarPublicacao(string IdPublicacao,[FromHeader] string UsuarioId)
         {
             var PublicacaoDeletada = new PublicacaoCore(_mapper).deletePublicacao(IdPublicacao, UsuarioId);
             return PublicacaoDeletada.Status ? Ok(PublicacaoDeletada) : (IActionResult)BadRequest(PublicacaoDeletada);

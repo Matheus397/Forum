@@ -36,7 +36,7 @@ namespace Core
                 .WithMessage($"A confirmação da senha do {_user.Nome} deve ser igual a senha inserida");
         }
  
-        public Retorno BuscaTdsUsuarios()
+        public Retorno buscaTdsUsuarios()
         {
             var allUsers = _arquivo.lstUsuarios;
             return allUsers.Any() ? 
@@ -45,7 +45,7 @@ namespace Core
             { "Não há nenhum usuário até então" } };
         }
 
-        public Retorno CadastrarUsuario()
+        public Retorno cadastrarUsuario()
         {
             if (!Validate(_user).IsValid)
                 return new Retorno { Status = false, Resultado = Validate(_user).Errors.Select(m => m.ErrorMessage).ToList() };
@@ -57,7 +57,7 @@ namespace Core
             return new Retorno { Status = true, Resultado = new List<string> { "Usuário cadastrado" } };
         }
 
-        public Retorno AutenticaUsuario(LoginViewRetorno LoginView)
+        public Retorno autenticaUsuario(LoginViewRetorno LoginView)
         {
             var user = _arquivo.lstUsuarios.Find(U => U.Email == LoginView.Login);
             if (user == null) return new Retorno { Status = false, Resultado = new List<string> { "Favor informar e-mail válido" } };

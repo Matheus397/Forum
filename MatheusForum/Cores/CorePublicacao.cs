@@ -29,7 +29,7 @@ namespace Core
                 .WithMessage("Favor inserir um texto com pelo menos 50 caracters");
         }
 
-        public Retorno AtualizarPublicacao(PublicacaoView publicacao, string id_publicacao, string id_user)
+        public Retorno atualizaPublicacao(PublicacaoView publicacao, string id_publicacao, string id_user)
         {
             if (!Guid.TryParse(id_publicacao, out Guid idconvertPublicacao))
                 return new Retorno { Status = false, Resultado = new List<string>
@@ -121,7 +121,7 @@ namespace Core
             { "Publicação Deletada "} };
         }
 
-        public Retorno BuscarPublicacaoID(string id_publicacao, string id_user)
+        public Retorno buscaIdPublicacao(string id_publicacao, string id_user)
         {
             if (!Guid.TryParse(id_publicacao, out Guid idconvertPublicacao))
                 return new Retorno
@@ -145,7 +145,7 @@ namespace Core
             new Retorno { Status = true, Resultado = Publicacao };
         }
 
-        public Retorno BuscarTodosPublicacoes(string id_user)
+        public Retorno buscaTodasPublicacoes(string id_user)
         {
             if (!Guid.TryParse(id_user, out Guid idconvertUsuario))
                 return new Retorno
@@ -162,7 +162,7 @@ namespace Core
             new Retorno { Status = false, Resultado = new List<string>
             { "Não há publicações na base ainda" } };
         }
-        public Retorno CadastrarPublicacao(string id_user)
+        public Retorno cadastrarPublicacao(string id_user)
         {
             if (_publicacao.Tipo != null && _publicacao.Tipo.ToLower().Contains("tutorial") || _publicacao.Tipo.ToLower().Contains("duvida"))
             {

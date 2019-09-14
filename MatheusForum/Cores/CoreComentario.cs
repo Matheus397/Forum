@@ -29,7 +29,7 @@ namespace Core
                 .WithMessage("O texto deve ter entre 10 e 500 caracters");
         }
 
-        public Retorno BuscarComentarioID(string id_user, string id_comentario)
+        public Retorno buscaIdComentario(string id_user, string id_comentario)
         {
             
             if (!Guid.TryParse(id_user, out Guid id) || _arquivo.lstUsuarios.Find(u => u.ID == id) == null)
@@ -41,8 +41,7 @@ namespace Core
             return new Retorno { Status = true, Resultado = comentario };
         }
 
-
-        public Retorno DeletarComentario(string id_user, string id_comentario)
+        public Retorno deleteComentario(string id_user, string id_comentario)
         {
             
             if (!Guid.TryParse(id_user, out Guid id) || _arquivo.lstUsuarios.Find(u => u.ID == id) == null)
@@ -63,7 +62,7 @@ namespace Core
             return new Retorno { Status = true, Resultado = "Comentário deletado " };
         }
 
-        public Retorno AtualizarComentario(string id_user, ComentarioAtualizacaoView comentario_view, string id_comentario)
+        public Retorno atualizaComentario(string id_user, ComentarioAtualizacaoView comentario_view, string id_comentario)
         {
            
             if (!Guid.TryParse(id_user, out Guid id) || _arquivo.lstUsuarios.Find(u => u.ID == id) == null)
@@ -89,7 +88,7 @@ namespace Core
             return new Retorno { Status = true, Resultado = comentario };
         }     
 
-        public Retorno CadastrarComentario(string UsuarioId)
+        public Retorno cadastraComentario(string UsuarioId)
         {
             if (!Validate(_comentario).IsValid) return new Retorno 
             { Status = false, Resultado = Validate(_comentario).Errors.Select(e => e.ErrorMessage).ToList()};

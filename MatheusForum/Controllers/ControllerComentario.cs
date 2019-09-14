@@ -14,9 +14,9 @@ namespace APIForum.Controllers
 
         // GET api/values/5
         [HttpGet("{id}")]
-        public IActionResult BuscarComentarioPorID(string id, [FromHeader] string id_user)
+        public IActionResult buscarComentarioPorID(string id, [FromHeader] string id_user)
         {
-            var idcoment = new ComentarioCore(_mapper).BuscarComentarioID(id_user, id);
+            var idcoment = new ComentarioCore(_mapper).buscaIdComentario(id_user, id);
             return idcoment.Status ? 
                 Ok(idcoment) : 
                 (IActionResult)BadRequest(idcoment);
@@ -24,9 +24,9 @@ namespace APIForum.Controllers
 
         // POST api/values
         [HttpPost]
-        public IActionResult CriarUmComentario([FromBody] ComentarioView comentarioView, [FromHeader] string id_user)
+        public IActionResult criaComentario([FromBody] ComentarioView comentarioView, [FromHeader] string id_user)
         {
-            var coment = new ComentarioCore(comentarioView, _mapper).CadastrarComentario(id_user);
+            var coment = new ComentarioCore(comentarioView, _mapper).cadastraComentario(id_user);
             return coment.Status ? 
                 Ok(coment) : 
                 (IActionResult)BadRequest(coment);
@@ -34,9 +34,9 @@ namespace APIForum.Controllers
 
         // PUT api/values/5
         [HttpPut("{publicacaoID}")]
-        public IActionResult AtualizarComentario([FromHeader] string id_user, [FromBody] ComentarioAtualizacaoView ComentarioView, string id_comentario)
+        public IActionResult atualizarComentario([FromHeader] string id_user, [FromBody] ComentarioAtualizacaoView ComentarioView, string id_comentario)
         {
-            var comentAtualiza = new ComentarioCore(_mapper).AtualizarComentario(id_user, ComentarioView, id_comentario);
+            var comentAtualiza = new ComentarioCore(_mapper).atualizaComentario(id_user, ComentarioView, id_comentario);
             return comentAtualiza.Status ?
                 Ok(comentAtualiza) : 
                 (IActionResult)BadRequest(comentAtualiza);
@@ -44,12 +44,12 @@ namespace APIForum.Controllers
 
         // DELETE api/values/5
         [HttpDelete("{IdPublicacao}")]
-        public IActionResult DeletarComentario(string id_comentario, [FromHeader] string id_user)
+        public IActionResult deletaComentario(string id_comentario, [FromHeader] string id_user)
         {
-            var ComentarioDeletado = new ComentarioCore(_mapper).DeletarComentario(id_comentario, id_user);
-            return ComentarioDeletado.Status ? 
-                Ok(ComentarioDeletado) :
-                (IActionResult)BadRequest(ComentarioDeletado);
+            var comentDeletado = new ComentarioCore(_mapper).deleteComentario(id_comentario, id_user);
+            return comentDeletado.Status ? 
+                Ok(comentDeletado) :
+                (IActionResult)BadRequest(comentDeletado);
         }
     }
 }
