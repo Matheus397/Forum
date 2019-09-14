@@ -1,0 +1,9 @@
+C:\Users\mathe\source\repos\MatheusForum\ViewModels\bin\Debug\netcoreapp2.2\ViewModels.deps.json
+C:\Users\mathe\source\repos\MatheusForum\ViewModels\bin\Debug\netcoreapp2.2\ViewModels.dll
+C:\Users\mathe\source\repos\MatheusForum\ViewModels\bin\Debug\netcoreapp2.2\ViewModels.pdb
+C:\Users\mathe\source\repos\MatheusForum\ViewModels\obj\Debug\netcoreapp2.2\ViewModels.csprojAssemblyReference.cache
+C:\Users\mathe\source\repos\MatheusForum\ViewModels\obj\Debug\netcoreapp2.2\ViewModels.csproj.CoreCompileInputs.cache
+C:\Users\mathe\source\repos\MatheusForum\ViewModels\obj\Debug\netcoreapp2.2\ViewModels.AssemblyInfoInputs.cache
+C:\Users\mathe\source\repos\MatheusForum\ViewModels\obj\Debug\netcoreapp2.2\ViewModels.AssemblyInfo.cs
+C:\Users\mathe\source\repos\MatheusForum\ViewModels\obj\Debug\netcoreapp2.2\ViewModels.dll
+C:\Users\mathe\source\repos\MatheusForum\ViewModels\obj\Debug\netcoreapp2.2\ViewModels.pdb

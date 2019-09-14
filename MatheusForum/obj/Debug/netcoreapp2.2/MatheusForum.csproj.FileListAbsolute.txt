@@ -1,0 +1,13 @@
+C:\Users\mathe\source\repos\MatheusForum\MatheusForum\bin\Debug\netcoreapp2.2\MatheusForum.deps.json
+C:\Users\mathe\source\repos\MatheusForum\MatheusForum\bin\Debug\netcoreapp2.2\MatheusForum.runtimeconfig.json
+C:\Users\mathe\source\repos\MatheusForum\MatheusForum\bin\Debug\netcoreapp2.2\MatheusForum.runtimeconfig.dev.json
+C:\Users\mathe\source\repos\MatheusForum\MatheusForum\bin\Debug\netcoreapp2.2\MatheusForum.dll
+C:\Users\mathe\source\repos\MatheusForum\MatheusForum\obj\Debug\netcoreapp2.2\MatheusForum.csprojAssemblyReference.cache
+C:\Users\mathe\source\repos\MatheusForum\MatheusForum\obj\Debug\netcoreapp2.2\MatheusForum.csproj.CoreCompileInputs.cache
+C:\Users\mathe\source\repos\MatheusForum\MatheusForum\obj\Debug\netcoreapp2.2\MatheusForum.RazorAssemblyInfo.cache
+C:\Users\mathe\source\repos\MatheusForum\MatheusForum\obj\Debug\netcoreapp2.2\MatheusForum.RazorAssemblyInfo.cs
+C:\Users\mathe\source\repos\MatheusForum\MatheusForum\obj\Debug\netcoreapp2.2\MatheusForum.AssemblyInfoInputs.cache
+C:\Users\mathe\source\repos\MatheusForum\MatheusForum\obj\Debug\netcoreapp2.2\MatheusForum.AssemblyInfo.cs
+C:\Users\mathe\source\repos\MatheusForum\MatheusForum\obj\Debug\netcoreapp2.2\MatheusForum.RazorTargetAssemblyInfo.cache
+C:\Users\mathe\source\repos\MatheusForum\MatheusForum\bin\Debug\netcoreapp2.2\Models.dll
+C:\Users\mathe\source\repos\MatheusForum\MatheusForum\bin\Debug\netcoreapp2.2\ViewModels.dll

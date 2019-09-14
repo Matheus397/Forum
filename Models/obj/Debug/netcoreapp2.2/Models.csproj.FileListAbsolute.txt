@@ -1,0 +1,4 @@
+C:\Users\mathe\source\repos\MatheusForum\Models\obj\Debug\netcoreapp2.2\Models.csprojAssemblyReference.cache
+C:\Users\mathe\source\repos\MatheusForum\Models\obj\Debug\netcoreapp2.2\Models.csproj.CoreCompileInputs.cache
+C:\Users\mathe\source\repos\MatheusForum\Models\obj\Debug\netcoreapp2.2\Models.AssemblyInfoInputs.cache
+C:\Users\mathe\source\repos\MatheusForum\Models\obj\Debug\netcoreapp2.2\Models.AssemblyInfo.cs

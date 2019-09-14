@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29306.81
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatheusForum", "MatheusForum\MatheusForum.csproj", "{87F49FB3-E733-4808-8B23-86F404DF390B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ViewModels", "ViewModels\ViewModels.csproj", "{ED145370-CB23-47A1-86A8-E383A2734746}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{87F49FB3-E733-4808-8B23-86F404DF390B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{87F49FB3-E733-4808-8B23-86F404DF390B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{87F49FB3-E733-4808-8B23-86F404DF390B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{87F49FB3-E733-4808-8B23-86F404DF390B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ED145370-CB23-47A1-86A8-E383A2734746}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED145370-CB23-47A1-86A8-E383A2734746}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED145370-CB23-47A1-86A8-E383A2734746}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED145370-CB23-47A1-86A8-E383A2734746}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D81FE393-1B8A-4C2C-BB0B-C3C6A154E8CF}
+	EndGlobalSection
+EndGlobal
