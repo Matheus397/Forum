@@ -22,52 +22,45 @@ namespace APIForum
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2); 
+
             services.AddMvc().AddJsonOptions(options =>
             {
                 options.SerializerSettings.DateFormatString = "dddd, dd/MM/yyyy";
                 options.SerializerSettings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
             });
 
-            services.AddSwaggerGen(c => c.SwaggerDoc("v1", new Info { Title = "APIForum", Version = "v1.0.0" }));
+            services.AddSwaggerGen(c => c.SwaggerDoc("v1", new Info { Title = "MatheusForum", Version = "v1.0.0" }));
 
-            var config = new MapperConfiguration(cfg =>
+            var config = new MapperConfiguration(w =>
             {
-                cfg.CreateMap<Usuario, Autor>();
-                cfg.CreateMap<UsuarioView, Usuario>();
+                w.CreateMap<PublicacaoAtualizacaoView, Publicacao>().ForMember(Destino => Destino.Titulo, y => y.Condition(origem => origem.Titulo != null)).ForMember(Destino => Destino.Status, y => y.Condition(origem => origem.Status != null)).ForMember(Destino => Destino.Texto, y => y.Condition(origem => origem.Texto != null));
 
-                cfg.CreateMap<Usuario, LoginViewRetorno>()
-                    .ForMember(dest => dest.tokenAcesso, opt => opt.MapFrom(src => src.ID))
-                    .ForMember(dest => dest.Nome, opt => opt.MapFrom(src => src.Nome));
+                w.CreateMap<Usuario, Autor>();
 
-                cfg.CreateMap<PublicacaoView, Publicacao>();
+                w.CreateMap<UsuarioView, Usuario>();
 
-                cfg.CreateMap<PublicacaoAtualizacaoView, Publicacao>()
-                    .ForMember(dest => dest.Titulo, opt => opt.Condition(ori => ori.Titulo != null))
-                    .ForMember(dest => dest.Status, opt => opt.Condition(ori => ori.Status != null))
-                    .ForMember(dest => dest.Texto, opt => opt.Condition(ori => ori.Texto != null));
+                w.CreateMap<Usuario, LoginViewRetorno>().ForMember(Destino => Destino.tokenAcesso, y => y.MapFrom(src => src.ID)).ForMember(Destino => Destino.Nome, y => y.MapFrom(src => src.Nome));
 
-                cfg.CreateMap<Publicacao, Publicacao>()
-                    .ForMember(dest => dest.ID, opt => opt.Ignore())
-                    .ForMember(dest => dest.Data, opt => opt.Ignore())
-                    .ForMember(dest => dest.Tipo, opt => opt.Ignore())
-                    .ForMember(dest => dest.lstComentarios, opt => opt.Ignore())
-                    .ForMember(dest => dest.Autor, opt => opt.Ignore())
-                    .ForMember(dest => dest.MediaDeVotos, opt => opt.Ignore())
-                    .ForMember(dest => dest.Titulo, opt => opt.Condition(ori => ori.Titulo != null))
-                    .ForMember(dest => dest.Status, opt => opt.Condition(ori => ori.Status != null))
-                    .ForMember(dest => dest.Texto, opt => opt.Condition(ori => ori.Texto != null));
+                w.CreateMap<PublicacaoView, Publicacao>();         
+              
+                w.CreateMap<ComentarioView, Comentario>().ForMember(Destino => Destino.ID, y => y.Ignore()).ForMember(Destino => Destino.Data, y => y.Ignore());
 
-                cfg.CreateMap<ComentarioView, Comentario>()
-                .ForMember(dest => dest.ID, opt => opt.Ignore())
-                .ForMember(dest => dest.Data, opt => opt.Ignore());
+                w.CreateMap<ComentarioAtualizacaoView, Comentario>().ForMember(Destino => Destino.CitacaoId, y => y.Condition(origem => origem.CitacaoId != null)).ForMember(Destino => Destino.mensagem, y => y.Condition(origem => origem.Msg != null));
 
-                cfg.CreateMap<ComentarioAtualizacaoView, Comentario>()
-                .ForMember(dest => dest.CitacaoId, opt => opt.Condition(ori => ori.CitacaoId != null))
-                .ForMember(dest => dest.Msg, opt => opt.Condition(ori => ori.Msg != null));
-
+                w.CreateMap<Publicacao, Publicacao>()
+                  .ForMember(Destino => Destino.ID, y => y.Ignore())
+                  .ForMember(Destino => Destino.Data, y => y.Ignore())
+                  .ForMember(Destino => Destino.Tipo, y => y.Ignore())
+                  .ForMember(Destino => Destino.lstComentarios, y => y.Ignore())
+                  .ForMember(Destino => Destino.Autor, y => y.Ignore())
+                  .ForMember(Destino => Destino.MediaDeVotos, y => y.Ignore())
+                  .ForMember(Destino => Destino.Titulo, y => y.Condition(origem => origem.Titulo != null))
+                  .ForMember(Destino => Destino.Status, y => y.Condition(origem => origem.Status != null))
+                  .ForMember(Destino => Destino.Texto, y => y.Condition(origem => origem.Texto != null));
 
             });
+
             IMapper mapper = config.CreateMapper();
             services.AddSingleton(mapper);
 

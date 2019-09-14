@@ -12,143 +12,189 @@ namespace Core
 {
     public class PublicacaoCore : AbstractValidator<Publicacao>
     {
+   
+        protected IMapper _Mapper { get; set; }
+        protected Publicacao _publicacao { get; set; }
+        protected Arquivo _arquivo { get; set; }
+        public PublicacaoCore(IMapper mapper) { _Mapper = mapper; _arquivo = Files.Puxar(_arquivo) ?? new Arquivo(); }
 
-        private Publicacao _Publicacao { get; set; }
-        private Compactar _compactar { get; set; }
-        private IMapper _Mapper { get; set; }
-        public PublicacaoCore(IMapper mapper) { _Mapper = mapper; _compactar = FileCloud.Recuperar(_compactar) ?? new Compactar(); }
         public PublicacaoCore(PublicacaoView publicacao, IMapper mapper)
         {
             _Mapper = mapper;
-            _Publicacao = _Mapper.Map<PublicacaoView, Publicacao>(publicacao);
-            _compactar = FileCloud.Recuperar(_compactar) ?? new Compactar();
-
-            RuleFor(p => p.Titulo).NotNull().Length(8, 250)
-                .WithMessage("O título não pode ser nulo e dever ter de 8 a 250 caracteres.");
-
-            RuleFor(p => p.Texto).NotNull().MinimumLength(50)
-                .WithMessage("o texto não pode ser nulo e deve ter pelo menos 50 caracteres para a descrição da publicação.");
-
+            _publicacao = _Mapper.Map<PublicacaoView, Publicacao>(publicacao);
+            _arquivo = Files.Puxar(_arquivo) ?? new Arquivo();
+            RuleFor(q => q.Titulo).NotNull().Length(8, 250)
+                .WithMessage("O título deve ter entre 8 e 250 caracters");
+            RuleFor(e => e.Texto).NotNull().MinimumLength(50)
+                .WithMessage("Favor inserir um texto com pelo menos 50 caracters");
         }
 
-
-        public Retorno CadastrarPublicacao(string UsuarioId)
+        public Retorno AtualizarPublicacao(PublicacaoView publicacao, string id_publicacao, string id_user)
         {
-            if (_Publicacao.Tipo != null && _Publicacao.Tipo.ToLower().Contains("tutorial") || _Publicacao.Tipo.ToLower().Contains("duvida") || _Publicacao.Tipo.ToLower().Contains("dúvida"))
-            {
-                if (!Validate(_Publicacao).IsValid) return new Retorno { Status = false, Resultado = Validate(_Publicacao).Errors.Select(e => e.ErrorMessage).ToList() };
+            if (!Guid.TryParse(id_publicacao, out Guid idconvertPublicacao))
+                return new Retorno { Status = false, Resultado = new List<string>
+                { "Insira um ID válido." } };
 
-                if (!Guid.TryParse(UsuarioId, out Guid id))
-                    return new Retorno { Status = false, Resultado = new List<string> { "Não foi possível identificar esse ID." } };
+            if (!Guid.TryParse(id_user, out Guid idconvertUsuario))
+                new Retorno { Status = false, Resultado = new List<string>
+                { "Token inválido ou não encontrado" } };
+            var PublicacaoSelecionada = 
+                _arquivo.lstPublicacoes.Find(p => p.ID == idconvertPublicacao);
 
-                _Publicacao.Autor = _Mapper.Map<Usuario, Autor>(_compactar.lstUsuarios.Find(u => u.ID == id));
+            if (PublicacaoSelecionada == null) return new Retorno
+            { Status = false, Resultado = new List<string>
+            { "Publicação não encontrada por este Id" } };
 
-                if (_Publicacao.Autor == null) return new Retorno { Status = false, Resultado = new List<string> { "Usúario não está logado, por favor efetue o login." } };
-
-                if (_Publicacao.Tipo.ToLower().Contains("tutorial")) _Publicacao.Status = null;
-
-                else if (_Publicacao.Tipo.ToLower().Contains("duvida") || _Publicacao.Tipo.ToLower().Contains("dúvida"))
-                    _Publicacao.Status = "aberta";
-
-                _compactar.lstPublicacoes.Add(_Publicacao);
-                FileCloud.Salvar(_compactar);
-                return new Retorno { Status = true, Resultado = new List<string> { $"{_Publicacao.Autor.Nome} sua publicação foi publicada com Sucesso." } };
-
-            }
-
-            return new Retorno { Status = false, Resultado = new List<string> { "Tipo não pode ser nulo e só pode ser 2 tipos de publicação 'tutorial' ou 'duvida' , informe um valor valido." } };
-        }
-
-        public Retorno AtualizarPublicacao(PublicacaoView publicacao, string IdPublicacao, string IdUsuario)
-        {
-            if (!Guid.TryParse(IdPublicacao, out Guid idconvertPublicacao))
-                return new Retorno { Status = false, Resultado = new List<string> { "Não foi possível localizar ID , Insira um ID válido." } };
-
-            if (!Guid.TryParse(IdUsuario, out Guid idconvertUsuario))
-                new Retorno { Status = false, Resultado = new List<string> { "Não foi possível achar o token de Acesso do Usuário inserido , Insira um token válido." } };
-
-            var PublicacaoSelecionada = _compactar.lstPublicacoes.Find(p => p.ID == idconvertPublicacao);
-            if (PublicacaoSelecionada == null) return new Retorno { Status = false, Resultado = new List<string> { "Não existe nenhuma Publicação com ID inserido" } };
-
-            var autorPublicacao = _compactar.lstUsuarios.Find(u => u.ID == idconvertUsuario);
-            if (autorPublicacao == null) return new Retorno { Status = false, Resultado = new List<string> { "Não existe nenhum Usuário com ID inserido" } };
+            var autorPublicacao = _arquivo.lstUsuarios.Find(u => u.ID == idconvertUsuario);
+            if (autorPublicacao == null) return new Retorno
+            { Status = false, Resultado = new List<string>
+            { "Não existe nenhum Usuário com ID inserido" } };
 
             if (PublicacaoSelecionada.Autor.Email != autorPublicacao.Email)
-                return new Retorno { Status = false, Resultado = new List<string> { "O Usuário inserido não tem permissão para Atualizar essa publicação , somente o autor tem permissão." } };
+                return new Retorno
+                { Status = false, Resultado = new List<string>
+                { "Apenas Autores podem mudar suas publicações" } };
 
             if (publicacao.Titulo != null)
             {
                 if (publicacao.Titulo.Length < 8 && publicacao.Titulo.Length > 250)
-                    return new Retorno { Status = false, Resultado = new List<string> { "O título dever ter de 8 a 250 caracteres." } };
+                    return new Retorno
+                    {
+                        Status = false,
+                        Resultado = new List<string>
+                    { "O título dever conter 8 a 250 caracteres." }
+                    };
             }
+
             if (publicacao.Texto != null)
             {
                 if (publicacao.Texto.Length < 50)
-                    return new Retorno { Status = false, Resultado = new List<string> { "o texto deve ter pelo menos 50 caracteres para a descrição da publicação." } };
+                    return new Retorno
+                    {
+                        Status = false,
+                        Resultado = new List<string>
+                    { "O texto deve ter ao menos 50 carteres" }
+                    };
             }
+            
             if (PublicacaoSelecionada.Tipo.ToLower() == "tutorial")
                 publicacao.Status = null;
 
             _Mapper.Map(publicacao, PublicacaoSelecionada);
-            FileCloud.Salvar(_compactar);
+            Files.Salvar(_arquivo);
             return new Retorno { Status = true, Resultado = PublicacaoSelecionada };
         }
 
-        public Retorno DeletarPublicacao(string IdPublicacao, string IdUsuario)
+        public Retorno deletePublicacao(string id_publicacao, string id_user)
         {
-            //validações para ver se os ID's inseridos ão válidos.
-            if (!Guid.TryParse(IdPublicacao, out Guid idconvertPublicacao))
-                return new Retorno { Status = false, Resultado = new List<string> { "Não foi possível localizar ID , Insira um ID válido." } };
+           
+            if (!Guid.TryParse(id_publicacao, out Guid idconvertPublicacao))
+                return new Retorno
+                { Status = false, Resultado = new List<string>
+                { "Id não encontrado" } };
 
-            if (!Guid.TryParse(IdUsuario, out Guid idconvertUsuario))
-                return new Retorno { Status = false, Resultado = new List<string> { "Não foi possível achar o token de Acesso do Usuário inserido , Insira um token válido." } };
+            if (!Guid.TryParse(id_user, out Guid idconvertUsuario))
+                return new Retorno
+                { Status = false, Resultado = new List<string>
+                { "Token inválido ou não encontrado" } };
 
-            //validações para ver se o autor e a publi~ção realmente existe
-            var Publicacao = _compactar.lstPublicacoes.Find(p => p.ID == idconvertPublicacao);
-            if (Publicacao == null) return new Retorno { Status = false, Resultado = new List<string> { "Não existe nenhuma Publicação com ID inserido" } };
+          
+            var Publicacao = _arquivo.lstPublicacoes.Find(p => p.ID == idconvertPublicacao);
+            if (Publicacao == null) return new Retorno
+            { Status = false, Resultado = new List<string>
+            { "Publicação não encontrada" } };
 
-            var autorPublicacao = _compactar.lstUsuarios.Find(u => u.ID == idconvertUsuario);
-            if (autorPublicacao == null) return new Retorno { Status = false, Resultado = new List<string> { "Não existe nenhum Usuário com ID inserido" } };
+            var autorPublicacao = _arquivo.lstUsuarios.Find(u => u.ID == idconvertUsuario);
 
-            //validação para ver se quem quer deletar a publicação é realmente o autor.
+            if (autorPublicacao == null) return new Retorno
+            { Status = false, Resultado = new List<string>
+            { "Id de usuário não encontrado" } };
+        
             if (Publicacao.Autor.Email != autorPublicacao.Email)
-                return new Retorno { Status = false, Resultado = new List<string> { "O Usuário inserido não tem permissão para apagar essa publicação , somente o autor tem permissão." } };
-
-            //se for o autor eu faço todo processo de deletação.
-            _compactar.lstPublicacoes.Remove(Publicacao);
-            FileCloud.Salvar(_compactar);
-
-            return new Retorno { Status = true, Resultado = new List<string> { $"{autorPublicacao.Nome} sua Publicação Deletada com sucesso." } };
-
+                return new Retorno
+                { Status = false, Resultado = new List<string>
+                { "Somente autores podem atualizar suas publicações" } };
+ 
+            _arquivo.lstPublicacoes.Remove(Publicacao);
+            Files.Salvar(_arquivo);
+            return new Retorno { Status = true, Resultado = new List<string>
+            { "Publicação Deletada "} };
         }
 
-        public Retorno BuscarPublicacaoID(string IdPublicacao, string IdUsuario)
+        public Retorno BuscarPublicacaoID(string id_publicacao, string id_user)
         {
-            if (!Guid.TryParse(IdPublicacao, out Guid idconvertPublicacao))
-                return new Retorno { Status = false, Resultado = new List<string> { "Não foi possível localizar ID , Insira um ID válido." } };
+            if (!Guid.TryParse(id_publicacao, out Guid idconvertPublicacao))
+                return new Retorno
+                { Status = false, Resultado = new List<string>
+                { "Id não encontrado" } };
 
+            if (!Guid.TryParse(id_user, out Guid idconvertUsuario))
+                return new Retorno
+                { Status = false, Resultado = new List<string>
+                { "Token inválido ou não encontrado" } };
 
-            if (!Guid.TryParse(IdUsuario, out Guid idconvertUsuario))
-                return new Retorno { Status = false, Resultado = new List<string> { "Não foi possível achar o token de Acesso do Usuário inserido , Insira um token válido." } };
+            var autorPublicacao = _arquivo.lstUsuarios.Find(u => u.ID == idconvertUsuario);
+            if (autorPublicacao == null) return new Retorno
+            { Status = false, Resultado = new List<string>
+            { "Usuário não encontrado" } };
 
-            var autorPublicacao = _compactar.lstUsuarios.Find(u => u.ID == idconvertUsuario);
-            if (autorPublicacao == null) return new Retorno { Status = false, Resultado = new List<string> { "Não existe nenhum Usuário com ID inserido" } };
-
-
-            var Publicacao = _compactar.lstPublicacoes.Find(p => p.ID == idconvertPublicacao);
-            return Publicacao == null ? new Retorno { Status = false, Resultado = new List<string> { "Não existe nenhuma Publicação com ID inserido" } } : new Retorno { Status = true, Resultado = Publicacao };
+            var Publicacao = _arquivo.lstPublicacoes.Find(p => p.ID == idconvertPublicacao);
+            return Publicacao == null ? new Retorno
+            { Status = false, Resultado = new List<string>
+            { "Publicação não encontrada" } } : 
+            new Retorno { Status = true, Resultado = Publicacao };
         }
 
-        public Retorno BuscarTodosPublicacoes(string IdUsuario)
+        public Retorno BuscarTodosPublicacoes(string id_user)
         {
-            if (!Guid.TryParse(IdUsuario, out Guid idconvertUsuario))
-                return new Retorno { Status = false, Resultado = new List<string> { "Não foi possível achar o token de Acesso do Usuário inserido , Insira um token válido." } };
+            if (!Guid.TryParse(id_user, out Guid idconvertUsuario))
+                return new Retorno
+                { Status = false, Resultado = new List<string>
+                { "Token inválido ou não encontrado" } };
 
-            var autorPublicacao = _compactar.lstUsuarios.Find(u => u.ID == idconvertUsuario);
-            if (autorPublicacao == null) return new Retorno { Status = false, Resultado = new List<string> { "Não existe nenhum Usuário com ID inserido" } };
+            var autorPublicacao = _arquivo.lstUsuarios.Find(u => u.ID == idconvertUsuario);
+            if (autorPublicacao == null) return new Retorno
+            { Status = false, Resultado = new List<string>
+            { "Id de usuário não encontrado" } };
+            var todas = _arquivo.lstPublicacoes;
+            return todas.Any() ? new Retorno
+            { Status = true, Resultado = todas } :
+            new Retorno { Status = false, Resultado = new List<string>
+            { "Não há publicações na base ainda" } };
+        }
+        public Retorno CadastrarPublicacao(string id_user)
+        {
+            if (_publicacao.Tipo != null && _publicacao.Tipo.ToLower().Contains("tutorial") || _publicacao.Tipo.ToLower().Contains("duvida"))
+            {
+                if (!Validate(_publicacao).IsValid)
+                    return new Retorno
+                { Status = false, Resultado = Validate(_publicacao).Errors.Select(e => e.ErrorMessage).ToList() };
 
-            var todas = _compactar.lstPublicacoes;
-            return todas.Any() ? new Retorno { Status = true, Resultado = todas } : new Retorno { Status = false, Resultado = new List<string> { "Não tem nenhuma Publicação na Base de Dados." } };
+                if (!Guid.TryParse(id_user, out Guid id))
+                    return new Retorno
+                    { Status = false, Resultado = new List<string>
+                    { "Id não encontrado" } };
+
+                _publicacao.Autor = _Mapper.Map<Usuario,
+                Autor>(_arquivo.lstUsuarios.Find(u => u.ID == id));
+
+                if (_publicacao.Autor == null) return new Retorno
+                { Status = false, Resultado = new List<string>
+                { "É necessário logar primeiro" } };
+
+                if (_publicacao.Tipo.ToLower().Contains("tutorial")) _publicacao.Status = null;
+
+                else if (_publicacao.Tipo.ToLower().Contains("duvida"))
+                    _publicacao.Status = "aberta";
+
+                _arquivo.lstPublicacoes.Add(_publicacao);
+                Files.Salvar(_arquivo);
+                return new Retorno { Status = true, Resultado = new List<string> { $"{_publicacao.Autor.Nome} sua publicação foi publicada com Sucesso." } };
+
+            }
+            return new Retorno
+            { Status = false, Resultado = new List<string>
+            { "A tipagem da publicação não pode ser nula" } };
         }
     }
 }

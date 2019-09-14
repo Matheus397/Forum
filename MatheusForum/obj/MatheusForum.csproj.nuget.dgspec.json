@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\mathe\\source\\repos\\MatheusForum\\MatheusForum\\MatheusForum.csproj": {}
+    "C:\\Users\\Treinamento 1\\Desktop\\Forum\\Forum\\MatheusForum\\MatheusForum.csproj": {}
   },
   "projects": {
-    "C:\\Users\\mathe\\source\\repos\\MatheusForum\\MatheusForum\\MatheusForum.csproj": {
+    "C:\\Users\\Treinamento 1\\Desktop\\Forum\\Forum\\MatheusForum\\MatheusForum.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\mathe\\source\\repos\\MatheusForum\\MatheusForum\\MatheusForum.csproj",
+        "projectUniqueName": "C:\\Users\\Treinamento 1\\Desktop\\Forum\\Forum\\MatheusForum\\MatheusForum.csproj",
         "projectName": "MatheusForum",
-        "projectPath": "C:\\Users\\mathe\\source\\repos\\MatheusForum\\MatheusForum\\MatheusForum.csproj",
-        "packagesPath": "C:\\Users\\mathe\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\mathe\\source\\repos\\MatheusForum\\MatheusForum\\obj\\",
+        "projectPath": "C:\\Users\\Treinamento 1\\Desktop\\Forum\\Forum\\MatheusForum\\MatheusForum.csproj",
+        "packagesPath": "C:\\Users\\Treinamento 1\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Treinamento 1\\Desktop\\Forum\\Forum\\MatheusForum\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\mathe\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Treinamento 1\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -30,8 +30,8 @@
         "frameworks": {
           "netcoreapp2.2": {
             "projectReferences": {
-              "C:\\Users\\mathe\\source\\repos\\MatheusForum\\ViewModels\\ViewModels.csproj": {
-                "projectPath": "C:\\Users\\mathe\\source\\repos\\MatheusForum\\ViewModels\\ViewModels.csproj"
+              "C:\\Users\\Treinamento 1\\Desktop\\Forum\\Forum\\ViewModels\\ViewModels.csproj": {
+                "projectPath": "C:\\Users\\Treinamento 1\\Desktop\\Forum\\Forum\\ViewModels\\ViewModels.csproj"
               }
             }
           }
@@ -70,7 +70,7 @@
               "version": "[2.2.0, )",
               "autoReferenced": true
             },
-            "Swashbuckle.AspNetCore.Swagger": {
+            "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[4.0.1, )"
             }
@@ -83,20 +83,20 @@
         }
       }
     },
-    "C:\\Users\\mathe\\source\\repos\\MatheusForum\\ViewModels\\ViewModels.csproj": {
+    "C:\\Users\\Treinamento 1\\Desktop\\Forum\\Forum\\ViewModels\\ViewModels.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\mathe\\source\\repos\\MatheusForum\\ViewModels\\ViewModels.csproj",
+        "projectUniqueName": "C:\\Users\\Treinamento 1\\Desktop\\Forum\\Forum\\ViewModels\\ViewModels.csproj",
         "projectName": "ViewModels",
-        "projectPath": "C:\\Users\\mathe\\source\\repos\\MatheusForum\\ViewModels\\ViewModels.csproj",
-        "packagesPath": "C:\\Users\\mathe\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\mathe\\source\\repos\\MatheusForum\\ViewModels\\obj\\",
+        "projectPath": "C:\\Users\\Treinamento 1\\Desktop\\Forum\\Forum\\ViewModels\\ViewModels.csproj",
+        "packagesPath": "C:\\Users\\Treinamento 1\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Treinamento 1\\Desktop\\Forum\\Forum\\ViewModels\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\mathe\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Treinamento 1\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [

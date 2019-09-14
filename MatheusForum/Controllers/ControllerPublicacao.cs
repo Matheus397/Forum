@@ -16,43 +16,51 @@ namespace APIForum.Controllers
     {
         private IMapper _mapper { get; set; }
         public PublicacaoController(IMapper mapper) => _mapper = mapper;
-        // GET api/values
+   
         [HttpGet]
-        public  IActionResult BuscarTodasPublicacoes([FromHeader]string UsuarioId) 
+        public  IActionResult BuscarTodasPublicacoes([FromHeader]string id_user) 
         {
-            var todasPublicacoes = new PublicacaoCore(_mapper).BuscarTodosPublicacoes(UsuarioId);
-            return todasPublicacoes.Status ? Ok(todasPublicacoes) : (IActionResult)BadRequest(todasPublicacoes);
+            var todasPublicacoes = new PublicacaoCore(_mapper).BuscarTodosPublicacoes(id_user);
+            return todasPublicacoes.Status ? 
+                Ok(todasPublicacoes) : 
+                (IActionResult)BadRequest(todasPublicacoes);
         }
 
-        // GET api/values/5
+     
         [HttpGet("{id}")]
-        public IActionResult BuscarPublicacaoPorID(string id,[FromHeader] string UsuarioId)
+        public IActionResult BuscarPublicacaoPorID(string id,[FromHeader] string id_user)
         {
-            var PublicacaoID = new PublicacaoCore(_mapper).BuscarPublicacaoID(id, UsuarioId);
-            return PublicacaoID.Status ? Ok(PublicacaoID): (IActionResult)BadRequest(PublicacaoID);
+            var PublicacaoID = new PublicacaoCore(_mapper).BuscarPublicacaoID(id, id_user);
+            return PublicacaoID.Status ? 
+                Ok(PublicacaoID): 
+                (IActionResult)BadRequest(PublicacaoID);
         }
 
-        // POST api/values
+       
         [HttpPost]
-        public IActionResult CriarUmaPublicacao([FromBody] PublicacaoView publicacaoView ,[FromHeader] string UsuarioId)
+        public IActionResult CriarUmaPublicacao([FromBody] PublicacaoView publicacaoView ,[FromHeader] string id_user)
         {
-            var Publicacao = new PublicacaoCore(publicacaoView, _mapper).CadastrarPublicacao(UsuarioId);
-            return Publicacao.Status ? Ok(Publicacao) : (IActionResult)BadRequest(Publicacao);
+            var Publicacao = new PublicacaoCore(publicacaoView, _mapper).CadastrarPublicacao(id_user);
+            return Publicacao.Status ? 
+                Ok(Publicacao) : 
+                (IActionResult)BadRequest(Publicacao);
         }
 
-        // PUT api/values/5
+       
         [HttpPut("{publicacaoID}")]
-        public IActionResult AtualizarPublicacao([FromHeader] string UsuarioId, [FromBody] PublicacaoView  PublicacaoView ,string publicacaoID)
+        public IActionResult AtualizarPublicacao([FromHeader] string id_user, [FromBody] PublicacaoView  PublicacaoView ,string id_publicacao)
         {
-            var AtualizarPublicacao = new PublicacaoCore(_mapper).AtualizarPublicacao(PublicacaoView, publicacaoID, UsuarioId);
-            return AtualizarPublicacao.Status ? Ok(AtualizarPublicacao) : (IActionResult)BadRequest(AtualizarPublicacao);
+            var AtualizarPublicacao = new PublicacaoCore(_mapper).AtualizarPublicacao(PublicacaoView, id_publicacao, id_user);
+            return AtualizarPublicacao.Status ? 
+                Ok(AtualizarPublicacao) : 
+                (IActionResult)BadRequest(AtualizarPublicacao);
         }
 
-        // DELETE api/values/5
+        
         [HttpDelete("{IdPublicacao}")]
         public IActionResult DeletarPublicacao(string IdPublicacao,[FromHeader] string UsuarioId)
         {
-            var PublicacaoDeletada = new PublicacaoCore(_mapper).DeletarPublicacao(IdPublicacao, UsuarioId);
+            var PublicacaoDeletada = new PublicacaoCore(_mapper).deletePublicacao(IdPublicacao, UsuarioId);
             return PublicacaoDeletada.Status ? Ok(PublicacaoDeletada) : (IActionResult)BadRequest(PublicacaoDeletada);
         }
     }

@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\mathe\\source\\repos\\MatheusForum\\ViewModels\\ViewModels.csproj": {}
+    "C:\\Users\\Treinamento 1\\Desktop\\Forum\\Forum\\ViewModels\\ViewModels.csproj": {}
   },
   "projects": {
-    "C:\\Users\\mathe\\source\\repos\\MatheusForum\\ViewModels\\ViewModels.csproj": {
+    "C:\\Users\\Treinamento 1\\Desktop\\Forum\\Forum\\ViewModels\\ViewModels.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\mathe\\source\\repos\\MatheusForum\\ViewModels\\ViewModels.csproj",
+        "projectUniqueName": "C:\\Users\\Treinamento 1\\Desktop\\Forum\\Forum\\ViewModels\\ViewModels.csproj",
         "projectName": "ViewModels",
-        "projectPath": "C:\\Users\\mathe\\source\\repos\\MatheusForum\\ViewModels\\ViewModels.csproj",
-        "packagesPath": "C:\\Users\\mathe\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\mathe\\source\\repos\\MatheusForum\\ViewModels\\obj\\",
+        "projectPath": "C:\\Users\\Treinamento 1\\Desktop\\Forum\\Forum\\ViewModels\\ViewModels.csproj",
+        "packagesPath": "C:\\Users\\Treinamento 1\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Treinamento 1\\Desktop\\Forum\\Forum\\ViewModels\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\mathe\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Treinamento 1\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [

@@ -4,7 +4,7 @@ namespace Models
     /// <summary>
     /// Compactar tem lista de todas minhas models, é essa classe que vou salvar no Json.
     /// </summary>
-    public class Compactar
+    public class Arquivo
     {
         public List<Usuario> lstUsuarios { get; set; } = new List<Usuario>();
         public List<Publicacao> lstPublicacoes { get; set; } = new List<Publicacao>();

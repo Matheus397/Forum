@@ -15,30 +15,33 @@ namespace APIForum.Controllers
 
         public UsuarioController(IMapper mapper) => _mapper = mapper;
 
-        // Post api/Autenticar
+       
+        [HttpGet]
+        public IActionResult BuscarTodosUsuarios()
+        {
+            var todosUsuarios = new UsuarioCore(_mapper).BuscaTdsUsuarios();
+            return todosUsuarios.Status ?
+                Ok(todosUsuarios) : 
+                (IActionResult)BadRequest(todosUsuarios);
+        }
+
         [HttpPost("Autenticar")]
         public IActionResult Login([FromBody] LoginViewRetorno loginView)
         {
-            var login = new UsuarioCore(_mapper).AutenticareUsuario(loginView);
-            return login.Status ? Ok(login) : (IActionResult)BadRequest(login);
+            var login = new UsuarioCore(_mapper).AutenticaUsuario(loginView);
+            return login.Status ? 
+                Ok(login) : 
+                (IActionResult)BadRequest(login);
         }
 
 
-        // POST api/
         [HttpPost]
         public IActionResult CadastroUsuario([FromBody] UsuarioView usuarioView)
         {
             var usuario = new UsuarioCore(usuarioView, _mapper).CadastrarUsuario();
-            return usuario.Status ? Ok(usuario) : (IActionResult)BadRequest(usuario);
+            return usuario.Status ? 
+                Ok(usuario) : 
+                (IActionResult)BadRequest(usuario);
         }
-
-        //GET api/
-        [HttpGet]
-        public IActionResult BuscarTodosUsuarios()
-        {
-            var todosUsuarios = new UsuarioCore(_mapper).BuscarTodosUsuarios();
-            return todosUsuarios.Status ? Ok(todosUsuarios) : (IActionResult)BadRequest(todosUsuarios);
-        }
-
     }
 }
