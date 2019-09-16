@@ -2,9 +2,12 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Models;
+using ModelsProject;
+using ModelsProject.DataBase;
 using Swashbuckle.AspNetCore.Swagger;
 using ViewModels;
 
@@ -22,6 +25,9 @@ namespace APIForum
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<Arquivo>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("stringConexao")), ServiceLifetime.Scoped);
+            
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2); 
 
             services.AddMvc().AddJsonOptions(options =>
@@ -35,35 +41,28 @@ namespace APIForum
             var config = new MapperConfiguration(w =>
             {
                 w.CreateMap<PublicacaoAtualizacaoView, Publicacao>().ForMember(Destino => Destino.Titulo, y => y.Condition(origem => origem.Titulo != null)).ForMember(Destino => Destino.Status, y => y.Condition(origem => origem.Status != null)).ForMember(Destino => Destino.Texto, y => y.Condition(origem => origem.Texto != null));
-
-                w.CreateMap<Usuario, Autor>();
-
-                w.CreateMap<UsuarioView, Usuario>();
-
+             
                 w.CreateMap<Usuario, LoginViewRetorno>().ForMember(Destino => Destino.tokenAcesso, y => y.MapFrom(src => src.ID)).ForMember(Destino => Destino.Nome, y => y.MapFrom(src => src.Nome));
 
-                w.CreateMap<PublicacaoView, Publicacao>();         
+                w.CreateMap<Publicacao, Publicacao>();         
               
-                w.CreateMap<ComentarioView, Comentario>().ForMember(Destino => Destino.ID, y => y.Ignore()).ForMember(Destino => Destino.Data, y => y.Ignore());
+                w.CreateMap<Comentario, Comentario>().ForMember(Destino => Destino.ID, y => y.Ignore()).ForMember(Destino => Destino.Data, y => y.Ignore());
 
                 w.CreateMap<ComentarioAtualizacaoView, Comentario>().ForMember(Destino => Destino.CitacaoId, y => y.Condition(origem => origem.CitacaoId != null)).ForMember(Destino => Destino.mensagem, y => y.Condition(origem => origem.Msg != null));
 
                 w.CreateMap<Publicacao, Publicacao>()
                   .ForMember(Destino => Destino.ID, y => y.Ignore())
                   .ForMember(Destino => Destino.Data, y => y.Ignore())
-                  .ForMember(Destino => Destino.Tipo, y => y.Ignore())
-                  .ForMember(Destino => Destino.lstComentarios, y => y.Ignore())
+                  .ForMember(Destino => Destino.Tipo, y => y.Ignore())     
                   .ForMember(Destino => Destino.Autor, y => y.Ignore())
                   .ForMember(Destino => Destino.MediaDeVotos, y => y.Ignore())
                   .ForMember(Destino => Destino.Titulo, y => y.Condition(origem => origem.Titulo != null))
                   .ForMember(Destino => Destino.Status, y => y.Condition(origem => origem.Status != null))
                   .ForMember(Destino => Destino.Texto, y => y.Condition(origem => origem.Texto != null));
 
-            });
-
+            });       
             IMapper mapper = config.CreateMapper();
             services.AddSingleton(mapper);
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -86,6 +85,7 @@ namespace APIForum
 
             app.UseHttpsRedirection();
             app.UseMvc();
+
         }
     }
 }

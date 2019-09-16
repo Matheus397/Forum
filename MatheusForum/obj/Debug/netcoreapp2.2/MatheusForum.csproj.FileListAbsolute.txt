@@ -28,3 +28,7 @@ C:\Users\Treinamento 1\Desktop\Forum\Forum\MatheusForum\obj\Debug\netcoreapp2.2\
 C:\Users\Treinamento 1\Desktop\Forum\Forum\MatheusForum\bin\Debug\netcoreapp2.2\MatheusForum.pdb
 C:\Users\Treinamento 1\Desktop\Forum\Forum\MatheusForum\obj\Debug\netcoreapp2.2\MatheusForum.dll
 C:\Users\Treinamento 1\Desktop\Forum\Forum\MatheusForum\obj\Debug\netcoreapp2.2\MatheusForum.pdb
+C:\Users\Treinamento 1\Desktop\Forum\Forum\MatheusForum\bin\Debug\netcoreapp2.2\Core.dll
+C:\Users\Treinamento 1\Desktop\Forum\Forum\MatheusForum\bin\Debug\netcoreapp2.2\ModelsProject.dll
+C:\Users\Treinamento 1\Desktop\Forum\Forum\MatheusForum\bin\Debug\netcoreapp2.2\Core.pdb
+C:\Users\Treinamento 1\Desktop\Forum\Forum\MatheusForum\bin\Debug\netcoreapp2.2\ModelsProject.pdb

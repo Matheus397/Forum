@@ -2,6 +2,8 @@
 using Core;
 using Microsoft.AspNetCore.Mvc;
 using Models;
+using ModelsProject;
+using ModelsProject.DataBase;
 using ViewModels;
 
 namespace APIForum.Controllers
@@ -10,15 +12,21 @@ namespace APIForum.Controllers
     [ApiController]
     public class UsuarioController : ControllerBase
     {
-        private IMapper _mapper;
-        public UsuarioController(IMapper mapper) => _mapper = mapper;
-      
+        private IMapper _mapper { get; set; }
+        public Arquivo _arquivo { get; set; }
+
+        public UsuarioController(IMapper mapper, Arquivo arquivo)
+        {
+            _mapper = mapper;
+            _arquivo = arquivo;
+        }
+
         [HttpGet]
         public IActionResult BuscarTodosUsuarios()
         {
             var todosUsuarios = new UsuarioCore(_mapper).buscaTdsUsuarios();
             return todosUsuarios.Status ?
-                Ok(todosUsuarios) : 
+                Ok(todosUsuarios) :           
                 (IActionResult)BadRequest(todosUsuarios);
         }
 
@@ -33,7 +41,7 @@ namespace APIForum.Controllers
 
 
         [HttpPost]
-        public IActionResult CadastroUsuario([FromBody] UsuarioView usuarioView)
+        public IActionResult CadastroUsuario([FromBody] Usuario usuarioView)
         {
             var usuario = new UsuarioCore(usuarioView, _mapper).cadastrarUsuario();
             return usuario.Status ? 
