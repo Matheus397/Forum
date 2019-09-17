@@ -11,9 +11,7 @@ using ViewModels;
 namespace Core
 {
     public class UsuarioCore : AbstractValidator<Usuario>
-    {
-        private IMapper mapper;
-
+    {        
         protected IMapper _Mapper { get; set; }
         protected Usuario _user { get; set; }
         protected Arquivo _arquivo { get; set; }
@@ -56,7 +54,7 @@ namespace Core
             {
                 Status = false,
                 Resultado = new List<string>
-            { "Não há nenhum usuário até então" }
+                { "Não há nenhum usuário até então" }
             };
         }
 
@@ -69,20 +67,19 @@ namespace Core
                 {
                     Status = false,
                     Resultado = new List<string>
-                { "Email pertence a outro usuário" }
+                    { "Email pertence a outro usuário" }
                 };
             _arquivo.Usuarios.Add(_user);
             //Files.Salvar(_arquivo);
             return new Retorno { Status = true, Resultado = new List<string> { "Usuário cadastrado" } };
         }
 
-        public Retorno autenticaUsuario(LoginViewRetorno LoginView)
+        public Retorno autenticaUsuario(LoginView LoginView)
         {
             var user = _arquivo.Usuarios.FirstOrDefault(U => U.Email == LoginView.Login);
             if (user == null) return new Retorno { Status = false, Resultado = new List<string> { "Favor informar e-mail válido" } };
             if (user.Senha != LoginView.Senha) return new Retorno { Status = false, Resultado = new List<string> { "Senha inválida" } };
             return new Retorno { Status = true, Resultado = _Mapper.Map<LoginViewRetorno>(user) };
         }
-
     }
 }

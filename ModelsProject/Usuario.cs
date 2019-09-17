@@ -4,7 +4,6 @@ namespace ModelsProject
 {
     public class Usuario : Heranca
     {
-
         [Required]
         [DataType(DataType.Password)]
         [Display(Name = "Informe a Senha")]
@@ -21,7 +20,6 @@ namespace ModelsProject
         [Display(Name = "Informe seu nome")]
         [MinLength(3, ErrorMessage = "Informe um nome com pelo menos 3 caracters")]
         public string Nome { get; set; }
-
 
         [Required(ErrorMessage = "Informe o seu email")]
         [RegularExpression(".+\\@.+\\..+", ErrorMessage = "Informe um email válido...")]

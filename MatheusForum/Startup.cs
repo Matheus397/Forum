@@ -85,7 +85,6 @@ namespace APIForum
 
             app.UseHttpsRedirection();
             app.UseMvc();
-
         }
     }
 }

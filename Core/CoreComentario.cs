@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using Core.Util;
 using FluentValidation;
-using Models;
 using ModelsProject;
 using ModelsProject.DataBase;
 using System;
@@ -171,7 +170,7 @@ namespace Core
                     { "Id de usuário não encontrado." }
                 };
 
-            _comentario.AutorComentario = UsuarioComentrio;
+            _comentario.AutorComentarioId = UsuarioComentrio.ID;
 
             var publicacaoComentario = _arquivo.Publicacoes.FirstOrDefault(p => p.ID == idPublicacao);
             if (publicacaoComentario == null)

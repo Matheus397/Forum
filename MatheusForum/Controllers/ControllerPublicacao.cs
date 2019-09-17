@@ -59,7 +59,9 @@ namespace APIForum.Controllers
         public IActionResult deletarPublicacao(string IdPublicacao, [FromHeader] string UsuarioId)
         {
             var PublicacaoDeletada = new PublicacaoCore(_mapper, _arquivo).deletePublicacao(IdPublicacao, UsuarioId);
-            return PublicacaoDeletada.Status ? Ok(PublicacaoDeletada) : (IActionResult)BadRequest(PublicacaoDeletada);
+            return PublicacaoDeletada.Status ?
+                Ok(PublicacaoDeletada) : 
+                (IActionResult)BadRequest(PublicacaoDeletada);
         }
     }
 }

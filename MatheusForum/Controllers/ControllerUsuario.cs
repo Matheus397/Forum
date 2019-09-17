@@ -31,7 +31,7 @@ namespace APIForum.Controllers
         }
 
         [HttpPost("Autenticar")]
-        public IActionResult Login([FromBody] LoginViewRetorno loginView)
+        public IActionResult Login([FromBody] LoginView loginView)
         {
             var login = new UsuarioCore(_mapper).autenticaUsuario(loginView);
             return login.Status ? 
